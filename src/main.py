@@ -13,3 +13,7 @@ def main():
     while True:
         print(f"Temperature: {sensor.read_temp()[1]}°F")
         time.sleep(1)
+
+
+if __name__ == '__main__':
+    main()
