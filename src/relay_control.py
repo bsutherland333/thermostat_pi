@@ -2,14 +2,14 @@ import RPi.GPIO as GPIO
 from enum import Enum
 
 
-class Relay(Enum):
+class RelayType(Enum):
     FAN = 16
     HEAT = 18
     COOL = 22
 
 
 class RelayControl:
-    def __init__(self, relay: Relay):
+    def __init__(self, relay: RelayType):
         self.relay = relay
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BOARD)
