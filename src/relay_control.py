@@ -10,13 +10,13 @@ class RelayType(Enum):
 
 class RelayControl:
     def __init__(self, relay: RelayType):
-        self.relay = relay.value
+        self.relay_pin = relay.value
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BOARD)
-        GPIO.setup(self.relay, GPIO.OUT, initial=GPIO.LOW)
+        GPIO.setup(self.relay_pin, GPIO.OUT, initial=GPIO.LOW)
 
     def on(self):
-        GPIO.output(self.relay, GPIO.HIGH)
+        GPIO.output(self.relay_pin, GPIO.HIGH)
 
     def off(self):
-        GPIO.output(self.relay, GPIO.LOW)
+        GPIO.output(self.relay_pin, GPIO.LOW)
