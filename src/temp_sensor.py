@@ -25,7 +25,7 @@ _RESOLUTION_SIXTEENTH_C = 0x3
 class TempSensor:
     def __init__(self):
         self.bus = smbus.SMBus(1)
-        self.bus.write_byte_data(_DEFAULT_ADDRESS, _REG_CONFIGURATION, _RESOLUTION_SIXTEENTH_C)
+        self.bus.write_byte_data(_DEFAULT_ADDRESS, _REG_RESOLUTION, _RESOLUTION_SIXTEENTH_C)
 
     def read_temp(self) -> (float, float):
         """
