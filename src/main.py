@@ -16,6 +16,7 @@ def main():
         cool.off()
         heat.off()
         temp_f = sensor.read_temp()[1]
+        print('Temperature:', temp_f)
         log_data(temp_f, '/home/brandon/temperature_log.csv')
         time.sleep(30)
 
