@@ -5,7 +5,7 @@ from datetime import datetime
 
 def log_data(data: float, filename: string):
     # Get the current time
-    current_time = datetime.now().strftime('%_%_%:%_%_%')
+    current_time = datetime.now().strftime('%Y_%m_%d:%H_%M_%S')
 
     # Open the CSV file in append mode
     with open(filename, mode='a', newline='') as file:
