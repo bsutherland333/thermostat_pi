@@ -13,10 +13,10 @@ class RelayControl:
         self.relay_pin = relay.value
         GPIO.setwarnings(False)
         GPIO.setmode(GPIO.BOARD)
-        GPIO.setup(self.relay_pin, GPIO.OUT, initial=GPIO.LOW)
+        GPIO.setup(self.relay_pin, GPIO.OUT, initial=GPIO.HIGH)
 
     def on(self):
-        GPIO.output(self.relay_pin, GPIO.HIGH)
+        GPIO.output(self.relay_pin, GPIO.LOW)
 
     def off(self):
-        GPIO.output(self.relay_pin, GPIO.LOW)
+        GPIO.output(self.relay_pin, GPIO.HIGH)
