@@ -2,7 +2,7 @@ import time
 
 from temp_sensor import TempSensor
 from relay_control import RelayControl, RelayType
-from logger import log_data
+from logger import Logger
 
 
 def main():
@@ -10,15 +10,17 @@ def main():
     fan = RelayControl(RelayType.FAN)
     cool = RelayControl(RelayType.COOL)
     heat = RelayControl(RelayType.HEAT)
+    temp_log = Logger('/home/brandon/temp_log.csv', ['Temperature (C)', 'Temperature (F)'])
+    status_log = Logger('/home/brandon/status_log.csv', ['Message'])
+
+    status_log.log(['Starting temperature logging'])
 
     while True:
-        fan.off()
-        cool.off()
-        heat.off()
-        temp_f = sensor.read_temp()[1]
-        print('Temperature:', temp_f)
-        log_data(temp_f, '/home/brandon/temperature_log.csv')
-        time.sleep(30)
+        temp = sensor.read_temp()
+        print('Temperature:', temp)
+        temp_log.log(temp)
+        time.sleep(60)
+
 
 if __name__ == '__main__':
     main()
