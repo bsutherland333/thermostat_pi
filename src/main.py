@@ -10,9 +10,10 @@ def main():
     fan = RelayControl(RelayType.FAN)
     cool = RelayControl(RelayType.COOL)
     heat = RelayControl(RelayType.HEAT)
-    temp_log = Logger('/home/brandon/temp_log.csv', ['Temperature (C)', 'Temperature (F)'])
-    status_log = Logger('/home/brandon/status_log.csv', ['Message'])
+    temp_log = Logger('/home/brandon/logs/temperature_log.csv', ['Temperature (C)', 'Temperature (F)'])
+    status_log = Logger('/home/brandon/logs/status_log.csv', ['Message'])
 
+    print('Starting temperature logging')
     status_log.log(['Starting temperature logging'])
 
     while True:
