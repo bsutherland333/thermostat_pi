@@ -6,14 +6,14 @@ from datetime import datetime
 
 class Logger:
     def __init__(self, filename: string, filepath: string, header: list):
-        self.filename = filename
-        self.filepath = filepath
-        self.header = header
-        self.num_columns = len(header)
+        self._filename = filename
+        self._filepath = filepath
+        self._header = header
+        self._num_columns = len(header)
 
     def log(self, data: list):
         # Check if the data has the correct number of columns
-        if len(data) != self.num_columns:
+        if len(data) != self._num_columns:
             raise ValueError("Data does not have the correct number of columns")
 
         # Get the current date and time
@@ -24,8 +24,8 @@ class Logger:
         current_time_epoch = datetime.now().timestamp()
 
         # Create the full filepath
-        appended_filename = f"{self.filename}_{current_date}.csv"
-        full_filepath = os.path.join(self.filepath, appended_filename)
+        appended_filename = f"{self._filename}_{current_date}.csv"
+        full_filepath = os.path.join(self._filepath, appended_filename)
 
         # Open the CSV file in append mode
         with open(full_filepath, mode="a", newline="") as file:
@@ -33,7 +33,7 @@ class Logger:
 
             # Write the header if the file is empty
             if file.tell() == 0:
-                writer.writerow(["Time", "Epoch Time (s)", *self.header])
+                writer.writerow(["Time", "Epoch Time (s)", *self._header])
 
             # Write the current time and temperature to the file
             writer.writerow([current_time, current_time_epoch, *data])

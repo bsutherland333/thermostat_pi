@@ -24,11 +24,13 @@ _RESOLUTION_SIXTEENTH_C = 0x3
 
 class TempSensor:
     def __init__(self):
-        self.bus = smbus.SMBus(1)
-        self.bus.write_byte_data(_DEFAULT_ADDRESS, _REG_RESOLUTION, _RESOLUTION_SIXTEENTH_C)
+        self._bus = smbus.SMBus(1)
+        self._bus.write_byte_data(
+            _DEFAULT_ADDRESS, _REG_RESOLUTION, _RESOLUTION_SIXTEENTH_C
+        )
 
     def read_temp(self) -> (float, float):
-        data = self.bus.read_i2c_block_data(_DEFAULT_ADDRESS, _REG__TEMP, 2)
+        data = self._bus.read_i2c_block_data(_DEFAULT_ADDRESS, _REG__TEMP, 2)
         temp_c = ((data[0] << 8 | data[1]) & 0xFFF) / 16
         temp_f = temp_c * 1.8 + 32
         return temp_c, temp_f
