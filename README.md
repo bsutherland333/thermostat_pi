@@ -44,17 +44,17 @@ The thermostat is controlled with a .yaml configuration file, with the filepath 
 The file consists of time entries in a 4 digit 24 hour format, with the first two digits representing the hour of the day and the last two representing the minute of the hour.
 
 Each time entry has three parameters:
-- setpoint: <temperature in fahrenheit>
-  The temperature that the thermostat should control to.
+- `setpoint`
+  The temperature that the thermostat should control to, in units of fahrenheit.
   Usually one of the only things you have to worry about with a typical thermostat.
-- tolerance: <temperature in fahrenheit>
-  The range around which the temperature is allowed to move.
+- `tolerance`
+  The range around which the temperature is allowed to move, in unit of fahrenheit.
   Thermostats use bang-bang control, which results in the temperature constantly going up and down around the setpoint as the heat/cool is switching between active and inactive.
   The tolerance is the distance away from the setpoint that the temperature is allowed to move within, making a zip-zag like pattern.
   The smaller this value is set to, the shorter but more frequent that the HVAC system will be on.
   Our analog thermostat has a tolerance of about 1 degree, which means that when set to 75 degrees, the temperature ranges from 74-76 degrees.
-- transition_period (optional, default is 0): <integer value of time in minutes>
-  This specifies the rate at which the setpoint should transition from the previous setpoint to the new one.
+- `transition_period` (optional, default is 0)
+  This specifies the rate in minutes at which the setpoint should transition from the previous setpoint to the new one.
   If set to zero, the setpoint will immediately jump from the previous value to the new value at the time for that entry.
   If set to something like 30 minutes, the setpoint will linearly transition from the previous value to the new value starting at the time of that entry.
 
