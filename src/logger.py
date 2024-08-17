@@ -5,9 +5,9 @@ from datetime import datetime
 
 
 class Logger:
-    def __init__(self, filename: string, filepath: string, header: list):
+    def __init__(self, filename: string, directory: string, header: list):
         self._filename = filename
-        self._filepath = filepath
+        self._directory = directory
         self._header = header
         self._num_columns = len(header)
 
@@ -25,10 +25,13 @@ class Logger:
 
         # Create the full filepath
         appended_filename = f"{self._filename}_{current_date}.csv"
-        full_filepath = os.path.join(self._filepath, appended_filename)
+        filepath = os.path.join(self._directory, appended_filename)
+
+        # Create the directory if it does not exist
+        os.makedirs(self._directory, exist_ok=True)
 
         # Open the CSV file in append mode
-        with open(full_filepath, mode="a", newline="") as file:
+        with open(filepath, mode="a", newline="") as file:
             writer = csv.writer(file)
 
             # Write the header if the file is empty
