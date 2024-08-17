@@ -1,11 +1,16 @@
 import time
 
-from temp_sensor import TempSensor
 from logger import Logger
+from relay_control import RelayType, RelayControl
+from temp_sensor import TempSensor
 
-LOG_PATH = "/home/brandon/thermostat_logs/"
+LOG_PATH = "/home/brandon/logs/"
 
 def main():
+    heat = RelayControl(RelayType.HEAT)
+    cool = RelayControl(RelayType.COOL)
+    fan = RelayControl(RelayType.FAN)
+
     sensor = TempSensor()
     temp_log = Logger("temperature", LOG_PATH, ["Temperature (C)", "Temperature (F)"])
     status_log = Logger("status", LOG_PATH, ["Message"])

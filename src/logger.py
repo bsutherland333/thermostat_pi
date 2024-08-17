@@ -33,7 +33,7 @@ class Logger:
 
             # Write the header if the file is empty
             if file.tell() == 0:
-                writer.writerow(["Time", "Epoch Time (s)", *header])
+                writer.writerow(["Time", "Epoch Time (s)", *self.header])
 
             # Write the current time and temperature to the file
             writer.writerow([current_time, current_time_epoch, *data])
