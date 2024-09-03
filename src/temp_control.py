@@ -16,7 +16,7 @@ class TempControl:
         self._heat_control = RelayControl(RelayType.HEAT)
         self._cool_control = RelayControl(RelayType.COOL)
 
-    def run(min_temp: float, max_temp: float, curr_temp: float, mode: ControlMode):
+    def run(self, min_temp: float, max_temp: float, curr_temp: float, mode: ControlMode):
         if mode == ControlMode.HEAT:
             # Make sure cool is off
             if self._cool_control.control_active:
