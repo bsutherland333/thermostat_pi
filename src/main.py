@@ -26,7 +26,7 @@ def main():
 
         temp_control.run(74, 75, temp[1], ControlMode.COOL)
 
-        time.sleep(20)
+        time.sleep(30)
 
 
 if __name__ == "__main__":
