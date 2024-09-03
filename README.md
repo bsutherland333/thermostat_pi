@@ -57,9 +57,8 @@ Each time entry has three parameters:
   This specifies the rate in minutes at which the setpoint should transition from the previous setpoint to the new one.
   If set to zero, the setpoint will immediately jump from the previous value to the new value at the time for that entry.
   If set to something like 30 minutes, the setpoint will linearly transition from the previous value to the new value starting at the time of that entry.
-
-The mode to use for temperature control isn't specified here, as the thermostat will automatically detect whether the ambient temperature is increasing in time (therefore needing cooling) or decreasing in time (therefore needing heating).
-To minimize energy usage, the thermostat will wait for the ambient temperature to increase or decrease to the setpoint and will not actively push it there.
+- mode: (optional, default is auto)
+  This specifies what mode to use for temperature control. There are three modes: heat, cool, and auto. Heat and cool specifies to only use heating or cooling respectively, while auto will use one or the other based on whether the ambient temperature is increasing or decreasing in time.
 
 Config example:
 ```
@@ -67,9 +66,11 @@ Config example:
   setpoint: 75.0
   tolerance: 0.5
   transition_period: 30
+  mode: auto
 
 2200:
   setpoint: 70.0
   tolerance: 0.5
   transition_period: 120
+  mode: auto
 ```
