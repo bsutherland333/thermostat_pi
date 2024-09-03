@@ -1,9 +1,9 @@
 import time
 
 from logger import Logger
-from temp_sensor import TempSensor
-from temp_control import TempControl, ControlMode
 from schedule import Schedule
+from temp_control import TempControl, ControlMode
+from temp_sensor import TempSensor
 
 
 LOG_DIRECTORY = "/home/brandon/logs/"

@@ -1,16 +1,17 @@
 import csv
-import os
 from datetime import datetime
+import os
+from typing import List, Tuple, Union
 
 
 class Logger:
-    def __init__(self, filename: str, directory: str, header: list):
+    def __init__(self, filename: str, directory: str, header: list) -> None:
         self._filename = filename
         self._directory = directory
         self._header = header
         self._num_columns = len(header)
 
-    def log(self, data: list):
+    def log(self, data: Union[List, Tuple]) -> None:
         # Check if the data has the correct number of columns
         if len(data) != self._num_columns:
             raise ValueError("Data does not have the correct number of columns")

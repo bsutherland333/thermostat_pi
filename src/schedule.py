@@ -3,7 +3,7 @@ import yaml
 
 
 class Schedule:
-    def __init__(self, schedule_filepath: str):
+    def __init__(self, schedule_filepath: str) -> None:
         self._schedule_filepath = schedule_filepath
 
     def get_setpoint(self) -> tuple[float, float, str]:
@@ -57,7 +57,7 @@ class Schedule:
 
         return min, max, mode
 
-    def _check_schedule_valid(self, schedule: dict):
+    def _check_schedule_valid(self, schedule: dict) -> None:
         # Check that the schedule has entries
         if not schedule:
             raise ValueError("Schedule is empty")

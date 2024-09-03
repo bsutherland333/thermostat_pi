@@ -10,7 +10,7 @@ class ControlMode(Enum):
 
 
 class TempControl:
-    def __init__(self, status_log: Logger):
+    def __init__(self, status_log: Logger) -> None:
         self._status_log = status_log
 
         self._heat_control = RelayControl(RelayType.HEAT)
@@ -18,7 +18,7 @@ class TempControl:
 
     def run(
         self, min_temp: float, max_temp: float, curr_temp: float, mode: ControlMode
-    ):
+    ) -> None:
         if mode == ControlMode.HEAT:
             # Make sure cool is off
             if self._cool_control.control_active:

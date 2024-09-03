@@ -23,7 +23,7 @@ _RESOLUTION_SIXTEENTH_C = 0x3
 
 
 class TempSensor:
-    def __init__(self):
+    def __init__(self) -> None:
         self._bus = smbus.SMBus(1)
         self._bus.write_byte_data(
             _DEFAULT_ADDRESS, _REG_RESOLUTION, _RESOLUTION_SIXTEENTH_C
