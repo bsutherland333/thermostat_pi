@@ -17,6 +17,11 @@ def main():
         "temperature", LOG_DIRECTORY, ["Temperature (C)", "Temperature (F)"]
     )
     status_log = Logger("status", LOG_DIRECTORY, ["Message"])
+    schedule_log = Logger(
+        "schedule",
+        LOG_DIRECTORY,
+        ["Minimum temperature (F)", "Maximum temperature (F)", "Mode"],
+    )
     temp_control = TempControl(status_log)
     schedule = Schedule(SCHEDULE_FILEPATH)
 
@@ -29,6 +34,8 @@ def main():
         temp_log.log(temp)
 
         min, max, mode = schedule.get_setpoint()
+        print("Schedule (F):", min, max, mode)
+        schedule_log.log([min, max, mode])
         if mode == "heat":
             mode = ControlMode.HEAT
         elif mode == "cool":
