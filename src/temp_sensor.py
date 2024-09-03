@@ -29,7 +29,7 @@ class TempSensor:
             _DEFAULT_ADDRESS, _REG_RESOLUTION, _RESOLUTION_SIXTEENTH_C
         )
 
-    def read_temp(self) -> (float, float):
+    def read_temp(self) -> tuple[float, float]:
         data = self._bus.read_i2c_block_data(_DEFAULT_ADDRESS, _REG__TEMP, 2)
         temp_c = ((data[0] << 8 | data[1]) & 0xFFF) / 16
         temp_f = temp_c * 1.8 + 32

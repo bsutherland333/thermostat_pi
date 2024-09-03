@@ -1,11 +1,10 @@
 import csv
 import os
-import string
 from datetime import datetime
 
 
 class Logger:
-    def __init__(self, filename: string, directory: string, header: list):
+    def __init__(self, filename: str, directory: str, header: list):
         self._filename = filename
         self._directory = directory
         self._header = header

@@ -16,7 +16,9 @@ class TempControl:
         self._heat_control = RelayControl(RelayType.HEAT)
         self._cool_control = RelayControl(RelayType.COOL)
 
-    def run(self, min_temp: float, max_temp: float, curr_temp: float, mode: ControlMode):
+    def run(
+        self, min_temp: float, max_temp: float, curr_temp: float, mode: ControlMode
+    ):
         if mode == ControlMode.HEAT:
             # Make sure cool is off
             if self._cool_control.control_active:
@@ -25,15 +27,15 @@ class TempControl:
             # Control is on and needs to shut off
             if curr_temp > max_temp and self._heat_control.control_active:
                 self._heat_control.off()
-                print('Heat off')
-                self._status_log.log(['Heat off'])
+                print("Heat off")
+                self._status_log.log(["Heat off"])
                 return
 
             # Control is off and needs to turn on
             if curr_temp < min_temp and not self._heat_control.control_active:
                 self._heat_control.on()
-                print('Heat on')
-                self._status_log.log(['Heat on'])
+                print("Heat on")
+                self._status_log.log(["Heat on"])
                 return
 
         else:  # ControlMode.COOL
@@ -44,14 +46,16 @@ class TempControl:
             # Control is on and needs to shut off
             if curr_temp < min_temp and self._cool_control.control_active:
                 self._cool_control.off()
-                print('Cool off')
-                self._status_log.log(['Cool off'])
+                print("Cool off")
+                self._status_log.log(["Cool off"])
                 return
 
             # Control is off and needs to turn on
             if curr_temp > max_temp and not self._cool_control.control_active:
                 self._cool_control.on()
-                print('Cool on')
-                self._status_log.log(['Cool on'])
+                print("Cool on")
+                self._status_log.log(["Cool on"])
                 return
 
+    def control_active(self) -> bool:
+        return self._heat_control.control_active or self._cool_control.control_active
