@@ -24,7 +24,7 @@ def main():
         print("Temperature (F):", temp[1])
         temp_log.log(temp)
 
-        temp_control(74, 75, temp[1], ControlMode.COOL)
+        temp_control.run(74, 75, temp[1], ControlMode.COOL)
 
         time.sleep(20)
 
