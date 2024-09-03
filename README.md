@@ -41,7 +41,8 @@ You should see a device at address 0x18 in the grid output.
 ## Controlling the thermostat
 
 The thermostat is controlled with a .yaml configuration file, with the filepath being set by a global variable in the main function.
-The file consists of time entries in a 4 digit 24 hour format, with the first two digits representing the hour of the day and the last two representing the minute of the hour.
+The file consists of time entries in a 3-4 digit 24 hour format, with the first digits representing the hour of the day and the last two representing the minute of the hour.
+Do not include leading zeros, as this will be interpreted as an octal number instead of a decimal number.
 
 Each time entry has three parameters:
 - `setpoint`:
@@ -62,7 +63,7 @@ Each time entry has three parameters:
 
 Config example:
 ```
-0500:
+500:
   setpoint: 75.0
   tolerance: 0.5
   transition_period: 30
