@@ -98,24 +98,23 @@ Each time entry has three parameters:
   The tolerance is the distance away from the setpoint that the temperature is allowed to move within, making a zip-zag like pattern.
   The smaller this value is set to, the shorter but more frequent that the HVAC system will be on.
   Our analog thermostat has a tolerance of about 1 degree, which means that when set to 75 degrees, the temperature ranges from 74-76 degrees.
+- `mode`
+  This specifies what mode to use for temperature control. There are two modes: `heat` and `cool`. The HVAC system will use only that which is specified when that schedule entry is active.
 - `transition_period` (optional, default is 0):
   This specifies the rate in minutes at which the setpoint should transition from the previous setpoint to the new one.
   If set to zero, the setpoint will immediately jump from the previous value to the new value at the time for that entry.
   If set to something like 30 minutes, the setpoint will linearly transition from the previous value to the new value starting at the time of that entry.
-- `mode` (optional, default is auto)
-  This specifies what mode to use for temperature control. There are three modes: heat, cool, and auto. Heat and cool specifies to only use heating or cooling respectively, while auto will use one or the other based on whether the ambient temperature is increasing or decreasing in time.
 
 Config example:
 ```
 500:
   setpoint: 75.0
   tolerance: 0.5
-  transition_period: 30
-  mode: auto
+  mode: cool
 
 2200:
   setpoint: 70.0
   tolerance: 0.5
+  mode: cool
   transition_period: 120
-  mode: auto
 ```

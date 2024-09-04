@@ -51,9 +51,7 @@ class Schedule:
         # Get final values to return
         min = setpoint - schedule[curr_entry]["tolerance"]
         max = setpoint + schedule[curr_entry]["tolerance"]
-        mode = (
-            schedule[curr_entry]["mode"] if "mode" in schedule[curr_entry] else "auto"
-        )
+        mode = schedule[curr_entry]["mode"]
 
         return min, max, mode
 
@@ -87,6 +85,11 @@ class Schedule:
             # Check that the tolerance is a positive float
             if not isinstance(value["tolerance"], float) or value["tolerance"] < 0:
                 raise ValueError(f"Entry {key} 'tolerance' is not a positive float")
+            # Check that each entry has the 'mode' key, and that it is a string equal to 'heat' or 'cool'
+            if "mode" not in value or value["mode"] not in ["heat", "cool"]:
+                raise ValueError(
+                    f"Entry {key} 'mode' is missing or not set to 'heat' or 'cool'"
+                )
             # Check that transition_period is a positive integer, if it exists
             if "transition_period" in value:
                 if (
@@ -95,12 +98,6 @@ class Schedule:
                 ):
                     raise ValueError(
                         f"Entry {key} 'transition_period' is not a positive integer"
-                    )
-            # Check that mode is 'auto', 'cool', or 'heat' if it exists
-            if "mode" in value:
-                if value["mode"] not in ["auto", "cool", "heat"]:
-                    raise ValueError(
-                        f"Entry {key} 'mode' is not 'auto', 'cool', or 'heat'"
                     )
 
         # Check that the schedule is in chronological order
