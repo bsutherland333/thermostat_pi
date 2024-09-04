@@ -23,7 +23,7 @@ I'm using this repository mostly as a place to back up and document my work, so 
 
 ### Wiring
 
-HVAC Wires
+HVAC Wires (for reference)
 
 - Blue: Common wire, essentially a neutral wire that doesn't activate anything
 - Red: 28VAC power wire
@@ -33,9 +33,13 @@ HVAC Wires
 
 Pi Wiring
 
-1. Wire the AC DC converter to the pi's 5v power and ground. I used pins 2 and 6.
-2. Wire the temperature sensor to the pi's 3v power and ground, and then wire the sensor's I2C pins to the pi's SDA and SCL I2C pins. Specifically, these are pins 1, 3, 5, and 9.
-3. Wire the relay board to the pi's 5v power and ground, and three of the pi's GPIO pins to the control pins on the relay board. Specifically, I used pins 4, 16, 18, 20, and 22.
+1. Wire the DC output on the power supply to the pi's 5v power and ground.
+   I used pins 2 and 6.
+   Make sure to adjust the screw on the potentiometer on the power supply to set the output to 5v before wiring it to the pi.
+2. Wire the temperature sensor to the pi's 3v power and ground, and then wire the sensor's I2C pins to the pi's SDA and SCL I2C pins.
+   Specifically, these are pins 1, 3, 5, and 9.
+3. Wire the relay board to the pi's 5v power and ground, and three of the pi's GPIO pins to the control pins on the relay board.
+   Specifically, I used pins 4, 16, 18, 20, and 22.
 
 Power Supply
 
@@ -98,7 +102,7 @@ Each time entry has three parameters:
   This specifies the rate in minutes at which the setpoint should transition from the previous setpoint to the new one.
   If set to zero, the setpoint will immediately jump from the previous value to the new value at the time for that entry.
   If set to something like 30 minutes, the setpoint will linearly transition from the previous value to the new value starting at the time of that entry.
-- mode: (optional, default is auto)
+- `mode` (optional, default is auto)
   This specifies what mode to use for temperature control. There are three modes: heat, cool, and auto. Heat and cool specifies to only use heating or cooling respectively, while auto will use one or the other based on whether the ambient temperature is increasing or decreasing in time.
 
 Config example:
