@@ -5,7 +5,7 @@ It uses a MCP9808 temperature sensor and a series of relays to control the heati
 I set this up on a Raspberry Pi Zero 2 W running Raspberry Pi OS Lite based on Debian Bookworm.
 
 USE AT YOUR OWN RISK.
-Modifying your HVAC system can result in freezing pipes and other damage. 
+Modifying your HVAC system can result in freezing pipes and other damage.
 If you use this, wire up the pi such that your regular thermostat can still control the system to avoid freezing pipes.
 
 I'm using this repository mostly as a place to back up and document my work, so expect some gaps.
@@ -17,8 +17,7 @@ I'm using this repository mostly as a place to back up and document my work, so 
 - [Raspberry Pi Zero 2 W](https://www.raspberrypi.org/products/raspberry-pi-zero-2-w/)
 - [MCP9808 temperature sensor](https://www.adafruit.com/product/1782)
 - [4 5V Relay Module](https://www.amazon.com/SunFounder-Channel-Shield-Arduino-Raspberry/dp/B00E0NSORY/?th=1)
-- [28VAC to 5VDC 2A converter](https://www.amazon.com/dp/B0BTSR2287?ref=ppx_yo2ov_dt_b_product_details&th=1)
-- Reasonably Large Capacitor (not sure if necessary, but I had one lying around and it seemed like a good idea)
+- [28VAC to 5VDC 2A converter](https://www.amazon.com/UMLIFE-Converter-2-5-35V-Regulator-Adjustable/dp/B094ZTG5S8/?th=1)
 - Switch
 - Various wires
 
@@ -32,11 +31,52 @@ HVAC Wires
 - Yellow: Cooling wire, activates the cooling when used as a neutral wire
 - White: Heating wire, activates the heating when used as a neutral wire
 
-Pi Software Setup
+Pi Wiring
 
-1. Enable I2C in `raspi-config` and install python3-smbus. 
-Use i2cdetect to make sure the MCP9808 is working properly. 
+1. Wire the AC DC converter to the pi's 5v power and ground. I used pins 2 and 6.
+2. Wire the temperature sensor to the pi's 3v power and ground, and then wire the sensor's I2C pins to the pi's SDA and SCL I2C pins. Specifically, these are pins 1, 3, 5, and 9.
+3. Wire the relay board to the pi's 5v power and ground, and three of the pi's GPIO pins to the control pins on the relay board. Specifically, I used pins 4, 16, 18, 20, and 22.
+
+Power Supply
+
+1. Connect the AC input of the power supply to the red and blue HVAC wires.
+2. Split the red wire leading to the power supply with a switch, and mount the switch in an easily accessible location on the thermostat.
+
+Relay Board
+
+1. Wire the relay to the pi as described in the pi wiring section.
+2. Connect the green, yellow, and white wires to the nominally open terminal block three of the relays.
+   Nominally open means that the connection with be open without input from the pi.
+   Which terminal block is which is denoted by a symbol on the board.
+3. Connect the red HVAC wire to the middle of the terminal connectors for each of the relays.
+   I did this by connecting the first relay to the red wire, and then chained the next relay by connecting the nominally closed terminal on the current relay with the center terminal on the next relay.
+   This means that only one system could ever be active at once, as enabling one would shut off the power to all systems after it.
+
+### Pi Software Setup
+
+1. Enable I2C in `raspi-config` and install python3-smbus.
+Use i2cdetect to make sure the MCP9808 is working properly.
 You should see a device at address 0x18 in the grid output.
+2. Install all other packages in requirements.txt.
+3. Create systemctl service to run script at startup.
+   Here is an example of what the service file should look like, stored in `/etc/systemd/system/thermostat.service`:
+   ```
+   [Unit]
+   Description=Run thermostat_pi
+   After=network.target
+   
+   [Service]
+   ExecStart=/usr/bin/python3 /home/brandon/thermostat_pi/src/main.py
+   WorkingDirectory=/home/brandon/thermostat_pi
+   Restart=always
+   RestartSec=10
+   User=brandon
+   Environment=PYTHONUNBUFFERED=1
+   
+   [Install]
+   WantedBy=multi-user.target
+   ```
+   Make sure to enable and start the service after rebooting the pi.
 
 ## Controlling the thermostat
 
