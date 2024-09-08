@@ -52,7 +52,7 @@ def main():
         temp_control.run(min, max, temp[1], mode)
 
         # Wait for a while, since HVAC systems are slow
-        time.sleep(30)
+        time.sleep(60)
 
 
 if __name__ == "__main__":
