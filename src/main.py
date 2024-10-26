@@ -10,6 +10,8 @@ LOG_DIRECTORY = "/home/brandon/logs/"
 SCHEDULE_FILEPATH = "/home/brandon/schedule.yaml"
 # OVERRIDE_FILEPATH = "/home/brandon/override.yaml"
 
+CONTROL_INTERVAL = 30  # seconds
+
 
 def main():
     # Initialize objects
@@ -52,7 +54,7 @@ def main():
         temp_control.run(min, max, temp[1], mode)
 
         # Wait for a while, since HVAC systems are slow
-        time.sleep(60)
+        time.sleep(CONTROL_INTERVAL)
 
 
 if __name__ == "__main__":
